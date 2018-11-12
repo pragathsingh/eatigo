@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'design/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'design/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container">
+<center><h3>View All Restaurants</h3></center>
+    <div class="col-sm-12" style="padding: 10px">
+        <button style="float: right" class="btn btn-sm btn-primary">
+            <a href="{% url 'addrestaurantpage' %}"><b style="color: white">Add Restaurant</b></a>
+        </button>
+    </div>
+    <table class="table" border="2px">
+        <thead>
+        <tr>
+            {% for head in heads %}
+                <th>{{ head }}</th>
+            {% endfor %}
+            <td>Update</td>
+            <td>Delete</td>
+        </tr>
+        </thead>
+    <tbody>
+        {% for a in data %}
+            <form action="" method="post">
+            {% csrf_token %}
+            <tr>
+                <td>{{a.id}}</td>
+                <td>{{a.restaurantname}}</td>
+                <td>{{a.email}}</td>
+                <td>{{a.password}}</td>
+                <td>{{a.mobileno}}</td>
+                <td>{{a.address}}</td>
+                <td>{{a.ownername}}</td>
+                <td>{{a.city}}</td>
+                <td>{{a.status}}</td>
+                <td>
+                    <input type="submit" formaction="{% url 'updaterestaurantpage' %}" value="Update" class="btn btn-sm btn-warning">
+                </td>
+                <td>
+                    <input type="submit" formaction="{% url 'deleterestaurant' %}" value="Delete" class="btn btn-sm btn-danger">
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{{ a.id }}">
+            </form>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+</body>
+</html>
